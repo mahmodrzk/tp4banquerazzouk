@@ -29,47 +29,35 @@ public class Modifier implements Serializable {
     @Inject
     private GestionnaireCompte gestionnaireCompte;
 
-    
     public Long getId() {
         return id;
     }
 
-    
     public void setId(Long id) {
         this.id = id;
     }
 
-    
     public String getNom() {
         return nom;
     }
 
-  
     public void setNom(String nom) {
         this.nom = nom;
     }
 
-  
     public CompteBancaire getCompte() {
         return compte;
     }
 
-    /**
-     * Charge le compte bancaire à partir de son identifiant.
-     */
     public void loadCompte() {
         compte = gestionnaireCompte.getCompte(id);
     }
 
-    /**
-     * Enregistre la modification du nom du compte.
-     * 
-     * @return La redirection vers la page "listeComptes" après l'enregistrement de la modification.
-     */
     public String enregistrerModification() {
         Util.addFlashInfoMessage("Nom " + compte.getNom() + " changé en " + nom);
         compte.setNom(nom);
         gestionnaireCompte.update(compte);
         return "listeComptes?faces-redirect=true";
     }
+
 }

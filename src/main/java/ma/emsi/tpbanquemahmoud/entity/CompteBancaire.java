@@ -6,17 +6,24 @@
  */
 package ma.emsi.tpbanquemahmoud.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
- * La classe CompteBancaire représente un compte bancaire avec des fonctionnalités de base telles que
- * le dépôt, le retrait et la gestion du solde.
+ * La classe CompteBancaire représente un compte bancaire avec des
+ * fonctionnalités de base telles que le dépôt, le retrait et la gestion du
+ * solde.
  *
  * @author ADMIN
  */
@@ -28,28 +35,38 @@ import java.io.Serializable;
 public class CompteBancaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    /**
+     *
+     */
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    
 
     private String nom;
 
     private int solde;
+    private ArrayList<Object> operations;
 
     /**
      * Constructeur par défaut de la classe CompteBancaire.
      */
     public CompteBancaire() {
+       
+       
+
     }
 
     /**
      * Constructeur paramétré de la classe CompteBancaire.
      *
-     * @param nom   Le nom du titulaire du compte.
+     * @param nom Le nom du titulaire du compte.
      * @param solde Le solde initial du compte.
      */
     public CompteBancaire(String nom, int solde) {
+        this.operations = new ArrayList<>();
         this.nom = nom;
         this.solde = solde;
     }

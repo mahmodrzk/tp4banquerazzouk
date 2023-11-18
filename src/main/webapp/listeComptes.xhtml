@@ -50,12 +50,23 @@
                             </h:commandLink>
                             <h:link outcome="modifier?id=#{item.id}" value="Modifier"/>
                         </p:column>
+                        <p:column>
+                            <!-- Colonne pour l'historique des opérations -->
+                            <f:facet name="header">
+                                <h:outputText value="Historique opérations"/>
+                            </f:facet>
+                            <h:link outcome="operation.xhtml">
+                                <!-- Lien vers la page d'opérations, le détail sera configuré avec l'ID du compte -->
+                                <f:param name="id" value="#{item.id}"/>
+                                <h:outputText value="Détails"/>
+                            </h:link>
+                        </p:column>
                     </p:dataTable>
                 </h:form>
 
                 <h:messages/>
             </ui:define>
         </ui:composition>
-        
+
     </body>
 </html>

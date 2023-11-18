@@ -22,9 +22,6 @@ public class Transfert implements Serializable {
     private int idDestination;
     private int montant;
 
-    public Transfert() {
-    }
-
     @Inject
     private GestionnaireCompte gc;
 
@@ -76,6 +73,12 @@ public class Transfert implements Serializable {
         gc.transferer(source, destination, montant);
         Util.addFlashInfoMessage("Transfert correctement effectué : Source = " + source.getNom() + " - Destination = " + destination.getNom() + " - Montant = " + montant);
         return "listeComptes?faces-redirect=true";
+    }
+
+    /**
+     * Creates a new instance of Transfert
+     */
+    public Transfert() {
     }
 
 }

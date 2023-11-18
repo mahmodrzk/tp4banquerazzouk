@@ -17,7 +17,6 @@ import ma.emsi.tpbanquemahmoud.service.GestionnaireCompte;
  *
  * @author ADMIN
  */
-
 @Named(value = "listeComptes")
 @ViewScoped
 public class ListeComptes implements Serializable {
