@@ -12,16 +12,19 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import ma.emsi.tpbanquemahmoud.entity.CompteBancaire;
+import ma.emsi.tpbanquemahmoud.entity.OperationBancaire;
 
 /**
- * Cette classe GestionnaireCompte est responsable de la gestion des opérations sur les comptes bancaires.
- * Elle utilise l'EntityManager pour interagir avec la base de données et effectue des opérations telles que la création, la mise à jour, et la suppression de comptes.
- * Les méthodes de cette classe sont transactionnelles, assurant l'intégrité des données lors des opérations.
- * Le DataSourceDefinition spécifie les paramètres de la source de données pour la connexion à la base de données MySQL.
+ * Cette classe GestionnaireCompte est responsable de la gestion des opérations
+ * sur les comptes bancaires. Elle utilise l'EntityManager pour interagir avec
+ * la base de données et effectue des opérations telles que la création, la mise
+ * à jour, et la suppression de comptes. Les méthodes de cette classe sont
+ * transactionnelles, assurant l'intégrité des données lors des opérations. Le
+ * DataSourceDefinition spécifie les paramètres de la source de données pour la
+ * connexion à la base de données MySQL.
  */
 @DataSourceDefinition(
         className = "com.mysql.cj.jdbc.MysqlDataSource",
@@ -41,6 +44,9 @@ import ma.emsi.tpbanquemahmoud.entity.CompteBancaire;
 @ApplicationScoped
 public class GestionnaireCompte {
 
+    /**
+     * Creates a new instance of GestionnaireCompte
+     */
     public GestionnaireCompte() {
     }
 
@@ -56,8 +62,17 @@ public class GestionnaireCompte {
         return em.find(CompteBancaire.class, id);
     }
 
+    public OperationBancaire findById(long id) {
+        return em.find(OperationBancaire.class, id);
+    }
+
+    @Transactional
+    public void persist(OperationBancaire operationBancaire) {
+        em.persist(operationBancaire);
+    }
+
     public List<CompteBancaire> getAllComptes() {
-        TypedQuery<CompteBancaire> query = em.createNamedQuery("CompteBancaire.findAll", CompteBancaire.class);
+        Query query = em.createNamedQuery("CompteBancaire.findAll");
         return query.getResultList();
     }
 
