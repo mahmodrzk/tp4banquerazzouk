@@ -19,9 +19,7 @@ import ma.emsi.tpbanquemahmoud.service.GestionnaireCompte;
 @ViewScoped
 public class Operation implements Serializable{
     private static final long serialVersionUID = 1L;
-   /* @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;*/
+   
     private Long id;
   
     private OperationBancaire operationBancaire;
