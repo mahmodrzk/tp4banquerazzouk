@@ -12,7 +12,7 @@ import ma.emsi.tbbanquemahmoud.util.Util;
 import ma.emsi.tpbanquemahmoud.entity.CompteBancaire;
 import ma.emsi.tpbanquemahmoud.service.GestionnaireCompte;
 
-@Named(value = "mouvement")
+@Named(value = "Mouvement")
 @ViewScoped
 public class Mouvement implements Serializable {
 

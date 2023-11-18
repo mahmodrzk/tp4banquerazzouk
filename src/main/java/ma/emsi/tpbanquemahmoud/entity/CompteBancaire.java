@@ -21,58 +21,55 @@ import java.util.List;
 
 
 /**
- * La classe CompteBancaire représente un compte bancaire avec des
- * fonctionnalités de base telles que le dépôt, le retrait et la gestion du
- * solde.
+ * Cette classe représente un compte bancaire avec des propriétés telles que l'identifiant, le nom du titulaire et le solde.
+ * Elle fournit des méthodes pour déposer et retirer de l'argent, ainsi que des méthodes de base pour la gestion du compte.
  *
- * @author ADMIN
+ * L'entité est annotée avec @Entity pour indiquer qu'elle est une entité JPA.
+ * Elle implémente l'interface Serializable pour permettre la sérialisation.
+ * La classe utilise des requêtes nommées (NamedQueries) pour effectuer des requêtes spécifiques dans la base de données.
  */
+@Entity
 @NamedQueries({
     @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT c FROM CompteBancaire c"),
     @NamedQuery(name = "CompteBancaire.count", query = "SELECT COUNT(c) FROM CompteBancaire c")
 })
-@Entity
 public class CompteBancaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /**
-     *
-     */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OperationBancaire> operations = new ArrayList<>();
 
     private String nom;
-
     private int solde;
-    private ArrayList<Object> operations;
 
     /**
-     * Constructeur par défaut de la classe CompteBancaire.
+     * Constructeur par défaut nécessaire pour JPA.
+     * Ajoute automatiquement une opération de création du compte.
      */
     public CompteBancaire() {
-       
-       
-
+        operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     /**
-     * Constructeur paramétré de la classe CompteBancaire.
+     * Constructeur pour créer un compte avec un nom et un solde initial.
+     * Ajoute automatiquement une opération de création du compte.
      *
-     * @param nom Le nom du titulaire du compte.
-     * @param solde Le solde initial du compte.
+     * @param nom Nom du titulaire du compte.
+     * @param solde Solde initial du compte.
      */
     public CompteBancaire(String nom, int solde) {
-        this.operations = new ArrayList<>();
         this.nom = nom;
         this.solde = solde;
+        operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     /**
-     * Obtient l'identifiant du compte.
+     * Getter pour l'identifiant du compte.
      *
      * @return L'identifiant du compte.
      */
@@ -81,7 +78,7 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Obtient le nom du titulaire du compte.
+     * Getter pour le nom du titulaire du compte.
      *
      * @return Le nom du titulaire du compte.
      */
@@ -90,7 +87,7 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Modifie le nom du titulaire du compte.
+     * Setter pour le nom du titulaire du compte.
      *
      * @param nom Le nouveau nom du titulaire du compte.
      */
@@ -99,7 +96,7 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Obtient le solde actuel du compte.
+     * Getter pour le solde du compte.
      *
      * @return Le solde du compte.
      */
@@ -108,7 +105,7 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Modifie le solde du compte.
+     * Setter pour le solde du compte.
      *
      * @param solde Le nouveau solde du compte.
      */
@@ -117,27 +114,46 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Dépose un montant sur le compte.
+     * Getter pour la liste des opérations associées au compte.
+     *
+     * @return La liste des opérations du compte.
+     */
+    public List<OperationBancaire> getOperations() {
+        return operations;
+    }
+
+    /**
+     * Méthode pour déposer de l'argent sur le compte.
+     * Ajoute une opération de dépôt à la liste des opérations.
      *
      * @param montant Le montant à déposer.
      */
     public void deposer(int montant) {
         solde += montant;
+        operations.add(new OperationBancaire("Dépôt", montant));
     }
 
     /**
-     * Retire un montant du compte.
+     * Méthode pour retirer de l'argent du compte.
+     * Ajoute une opération de retrait à la liste des opérations.
+     * Le solde ne peut pas devenir négatif.
      *
      * @param montant Le montant à retirer.
      */
     public void retirer(int montant) {
         if (montant < solde) {
             solde -= montant;
+            operations.add(new OperationBancaire("Retrait", montant));
         } else {
             solde = 0;
         }
     }
 
+    /**
+     * Implémentation de la méthode hashCode() pour permettre une utilisation correcte dans les structures de données.
+     *
+     * @return La valeur de hachage de l'objet.
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -145,17 +161,26 @@ public class CompteBancaire implements Serializable {
         return hash;
     }
 
+    /**
+     * Implémentation de la méthode equals() pour permettre la comparaison d'objets.
+     *
+     * @param object L'objet à comparer.
+     * @return True si les objets sont égaux, sinon False.
+     */
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof CompteBancaire)) {
             return false;
         }
         CompteBancaire other = (CompteBancaire) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
+
+    /**
+     * Implémentation de la méthode toString() pour obtenir une représentation textuelle de l'objet.
+     *
+     * @return La représentation textuelle de l'objet.
+     */
 
     @Override
     public String toString() {
