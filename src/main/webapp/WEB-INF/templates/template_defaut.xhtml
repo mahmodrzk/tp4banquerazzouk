@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!--
+        Ce fichier représente le modèle (template) Facelets pour la mise en page de l'application.
+        Il est utilisé pour définir la structure de base de toutes les pages de l'application.
+    -->
+    <ui:insert name="metadata"/>
+
+    <h:head>
+        <!--
+            En-tête de la page qui contient les métadonnées, les feuilles de style, et le titre.
+        -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+        <!--
+            Corps de la page qui contient la structure de base de l'application.
+        -->
+
+        <div id="top" class="top">
+            <!--
+                Zone "top" de la page, généralement utilisée pour afficher des informations en haut de la page.
+            -->
+            <ui:insert name="top">Top</ui:insert>
+        </div>
+
+        <div>
+            <div id="left">
+                <!--
+                    Zone "left" de la page, généralement utilisée pour afficher un menu de navigation.
+                -->
+                <ui:insert name="left">
+                    <!-- Inclusion du fichier de menu par défaut -->
+                    <ui:include src="menu.xhtml"/>
+                </ui:insert>    
+            </div>
+
+            <div id="content" class="left_content">
+                <!--
+                    Zone "content" de la page, utilisée pour afficher le contenu principal de la page.
+                -->
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+    </h:body>
+</html>

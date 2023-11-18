@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="jakarta.faces.html">
+
+    <body>
+        <!-- En-tête de la page -->
+
+        <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+            <!-- Utilisation d'un modèle de page (template) pour la mise en page -->
+
+            <ui:define name="top">
+                Ajout d'un compte
+            </ui:define>
+            <!-- Définition du contenu de la zone "top" du modèle -->
+
+            <ui:define name="content">
+                <h:form id="form">
+                    <!-- Formulaire principal avec l'identifiant "form" -->
+
+                    Nom :
+                    <h:inputText id="nom" size="3" value="#{ajoutCompte.nom}" required="true"/>
+                    <!-- Champ de saisie pour le nom -->
+
+                    <h:message for="nom"/>
+                    <!-- Affichage des messages d'erreur liés au champ "nom" -->
+
+                    Montant :
+                    <h:inputText id="montant" size="3" value="#{ajoutCompte.montant}" required="true" converterMessage="Le montant est un nombre entier"/>
+                    <!-- Champ de saisie pour le montant avec message de conversion personnalisé -->
+
+                    <h:message for="montant"/>
+                    <!-- Affichage des messages d'erreur liés au champ "montant" -->
+
+                    <h:commandButton id="ajouter" value="Ajouter" action="#{ajoutCompte.ajouter()}"/>
+                    <!-- Bouton "Ajouter" pour soumettre le formulaire -->
+                </h:form>
+                <!-- Fin du formulaire -->
+
+                <h:messages/>
+                <!-- Affichage des messages globaux (non liés à un champ spécifique) -->
+
+            </ui:define>
+            <!-- Fin de la définition du contenu de la zone "content" du modèle -->
+
+        </ui:composition>
+        <!-- Fin de l'utilisation du modèle de page -->
+
+    </body>
+</html>

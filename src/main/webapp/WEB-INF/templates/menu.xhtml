@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets">
+
+    <!--
+        Ce fichier représente le menu de navigation de l'application.
+        Il contient des liens vers différentes pages de l'application.
+    -->
+    <ul>
+        <!--
+            Liens de navigation vers différentes pages de l'application.
+        -->
+        <li><h:link outcome="/index" value="Accueil"/></li>
+        <li><h:link outcome="/listeComptes" value="Liste des comptes"/></li>  
+        <li><h:link outcome="/transfert" value="Transfert d'argent"/></li>
+        <li><h:link outcome="/ajoutCompte" value="Ajouter un compte"/></li>
+    </ul>
+</ui:composition>
