@@ -7,8 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <f:metadata>
-        <f:viewParam name="id" value="#{operation.id}"
-                     required="true"/>
+        <f:viewParam name="id" value="#{operation.id}" required="true"/>
         <f:viewAction action="#{operation.loadCustomer()}"/>
     </f:metadata>
 
@@ -23,19 +22,19 @@
         <h:form>
             <h:outputText value="Historique des opérations pour le compte " />
 
-            <p:dataTable value="#{operation.operationBancaire}" var="operation" 
+            <p:dataTable value="#{operation.operationBancaire}" var="op"
                          emptyMessage="Aucune opération disponible" styleClass="small-table">
                 <p:column headerText="ID">
-                    <h:outputText value="#{operation.operationBancaire.id}" />
+                    <h:outputText value="#{op.id}" />
                 </p:column>
                 <p:column headerText="Description">
-                    <h:outputText value="#{operation.operationBancaire.description}" />
+                    <h:outputText value="#{op.description}" />
                 </p:column>
                 <p:column headerText="Date">
-                    <h:outputText value="#{operation.operationBancaire.dateOperation}" />
+                    <h:outputText value="#{op.dateOperation}" />
                 </p:column>
                 <p:column headerText="Montant">
-                    <h:outputText value="#{operation.operationBancaire.montant}" />
+                    <h:outputText value="#{op.montant}" />
                 </p:column>
             </p:dataTable>
         </h:form>

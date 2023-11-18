@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
  * @author MOHAMED
  */
 @Entity
+
 public class OperationBancaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
