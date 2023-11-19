@@ -169,4 +169,5 @@ public class OperationBancaire implements Serializable {
     public void setMontant(int montant) {
         this.montant = montant;
     }
+    
 }

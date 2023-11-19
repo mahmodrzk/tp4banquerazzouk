@@ -15,10 +15,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.persistence.Version;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import ma.emsi.tbbanquemahmoud.util.Util;
+import ma.emsi.tpbanquemahmoud.service.GestionnaireCompte;
 
 /**
  * Cette classe représente un compte bancaire avec des propriétés telles que
@@ -192,4 +195,5 @@ public class CompteBancaire implements Serializable {
     public String toString() {
         return "ma.emsi.tpbanquemahmoud.entity.CompteBancaire[ id=" + id + " ]";
     }
+   
 }
