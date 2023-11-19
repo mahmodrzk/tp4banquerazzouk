@@ -15,18 +15,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Version;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Cette classe représente un compte bancaire avec des propriétés telles que l'identifiant, le nom du titulaire et le solde.
- * Elle fournit des méthodes pour déposer et retirer de l'argent, ainsi que des méthodes de base pour la gestion du compte.
+ * Cette classe représente un compte bancaire avec des propriétés telles que
+ * l'identifiant, le nom du titulaire et le solde. Elle fournit des méthodes
+ * pour déposer et retirer de l'argent, ainsi que des méthodes de base pour la
+ * gestion du compte.
  *
  * L'entité est annotée avec @Entity pour indiquer qu'elle est une entité JPA.
- * Elle implémente l'interface Serializable pour permettre la sérialisation.
- * La classe utilise des requêtes nommées (NamedQueries) pour effectuer des requêtes spécifiques dans la base de données.
+ * Elle implémente l'interface Serializable pour permettre la sérialisation. La
+ * classe utilise des requêtes nommées (NamedQueries) pour effectuer des
+ * requêtes spécifiques dans la base de données.
  */
 @Entity
 @NamedQueries({
@@ -36,11 +39,13 @@ import java.util.List;
 public class CompteBancaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+    @Version
+    private int version;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OperationBancaire> operations = new ArrayList<>();
 
@@ -48,16 +53,16 @@ public class CompteBancaire implements Serializable {
     private int solde;
 
     /**
-     * Constructeur par défaut nécessaire pour JPA.
-     * Ajoute automatiquement une opération de création du compte.
+     * Constructeur par défaut nécessaire pour JPA. Ajoute automatiquement une
+     * opération de création du compte.
      */
     public CompteBancaire() {
         operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     /**
-     * Constructeur pour créer un compte avec un nom et un solde initial.
-     * Ajoute automatiquement une opération de création du compte.
+     * Constructeur pour créer un compte avec un nom et un solde initial. Ajoute
+     * automatiquement une opération de création du compte.
      *
      * @param nom Nom du titulaire du compte.
      * @param solde Solde initial du compte.
@@ -123,8 +128,8 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Méthode pour déposer de l'argent sur le compte.
-     * Ajoute une opération de dépôt à la liste des opérations.
+     * Méthode pour déposer de l'argent sur le compte. Ajoute une opération de
+     * dépôt à la liste des opérations.
      *
      * @param montant Le montant à déposer.
      */
@@ -134,9 +139,8 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Méthode pour retirer de l'argent du compte.
-     * Ajoute une opération de retrait à la liste des opérations.
-     * Le solde ne peut pas devenir négatif.
+     * Méthode pour retirer de l'argent du compte. Ajoute une opération de
+     * retrait à la liste des opérations. Le solde ne peut pas devenir négatif.
      *
      * @param montant Le montant à retirer.
      */
@@ -150,7 +154,8 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Implémentation de la méthode hashCode() pour permettre une utilisation correcte dans les structures de données.
+     * Implémentation de la méthode hashCode() pour permettre une utilisation
+     * correcte dans les structures de données.
      *
      * @return La valeur de hachage de l'objet.
      */
@@ -162,7 +167,8 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Implémentation de la méthode equals() pour permettre la comparaison d'objets.
+     * Implémentation de la méthode equals() pour permettre la comparaison
+     * d'objets.
      *
      * @param object L'objet à comparer.
      * @return True si les objets sont égaux, sinon False.
@@ -177,11 +183,11 @@ public class CompteBancaire implements Serializable {
     }
 
     /**
-     * Implémentation de la méthode toString() pour obtenir une représentation textuelle de l'objet.
+     * Implémentation de la méthode toString() pour obtenir une représentation
+     * textuelle de l'objet.
      *
      * @return La représentation textuelle de l'objet.
      */
-
     @Override
     public String toString() {
         return "ma.emsi.tpbanquemahmoud.entity.CompteBancaire[ id=" + id + " ]";
